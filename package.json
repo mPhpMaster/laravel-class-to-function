@@ -1,0 +1,26 @@
+{
+    "name": "@mphpmaster/laravel-class-to-function",
+    "version": "0.1.0",
+    "description": "Laravel Helpers: Class To Function",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/mPhpMaster/laravel-class-to-function.git"
+    },
+    "keywords": [
+        "laravel",
+        "helpers"
+    ],
+    "author": "mPhpMaster",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/mPhpMaster/laravel-class-to-function/issues"
+    },
+    "homepage": "https://github.com/mPhpMaster/laravel-class-to-function#readme",
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com/"
+    }
+}

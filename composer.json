@@ -1,0 +1,36 @@
+{
+    "name": "mphpmaster/laravel-class-to-function",
+    "description": "Laravel Helpers: Class To Function",
+    "type": "library",
+    "keywords": ["helpers", "laravel", "traits", "php"],
+    "require": {
+        "php": ">=7.4",
+        "laravel/framework": ">=5.8",
+        "laravel/helpers": "^1.1"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mPhpMaster",
+            "email": "59211285+mPhpMaster@users.noreply.github.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "mPhpMaster\\LaravelClassToFunction\\": "src/"
+        },
+        "files": [
+            "src/Helpers/Functions.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "mPhpMaster\\LaravelClassToFunction\\Providers\\HelpersProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "scripts": {
+    }
+}
