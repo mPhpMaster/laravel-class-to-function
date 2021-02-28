@@ -2,7 +2,7 @@
     "name": "mphpmaster/laravel-class-to-function",
     "description": "Laravel Helpers: Class To Function",
     "type": "library",
-    "keywords": ["helpers", "laravel", "traits", "php"],
+    "keywords": ["helpers", "laravel", "class", "function", "php", "invoke"],
     "require": {
         "php": ">=7.4",
         "laravel/framework": ">=5.8",

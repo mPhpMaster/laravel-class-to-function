@@ -12,7 +12,11 @@
     },
     "keywords": [
         "laravel",
-        "helpers"
+        "helpers", 
+        "class", 
+        "function", 
+        "php", 
+        "invoke"
     ],
     "author": "mPhpMaster",
     "license": "MIT",
