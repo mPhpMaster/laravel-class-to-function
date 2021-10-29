@@ -1,5 +1,9 @@
 # Laravel Helpers: Class To Function
 
+## Installation:
+`composer require mphpmaster/laravel-class-to-function`
+
+## Content
 - Class:
   1. `mPhpMaster\LaravelClassToFunction\Classes\ClassToFunction`.
 
