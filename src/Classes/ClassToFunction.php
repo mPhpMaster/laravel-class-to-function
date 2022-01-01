@@ -10,14 +10,14 @@ use mPhpMaster\LaravelClassToFunction\Traits\TMacroable;
 
 /**
  * Class ClassToFunction
- * 
+ *
  * @package mPhpMaster\LaravelClassToFunction\Classes
  */
 class ClassToFunction
 {
     use Tappable,
         TMacroable;
-    
+
     /**
      * @var array
      */
@@ -40,11 +40,19 @@ class ClassToFunction
 
     public function __construct()
     {
-        $path = \Illuminate\Support\Env::get('COMPOSER_VENDOR_DIR', app()->basePath('vendor/composer/autoload_classmap.php'));
-        if ( ($_f = new \Illuminate\Filesystem\Filesystem)->exists($path) ) {
+        $path =
+            \Illuminate\Support\Env::get(
+                'COMPOSER_VENDOR_DIR',
+                app()->basePath('vendor/composer/autoload_classmap.php')
+            );
+        if( ($_f = new \Illuminate\Filesystem\Filesystem)->exists($path) ) {
             collect($_f->getRequire($path))->filter(function ($path, $class) {
-                $is_class = str_before(base_path($path), "/") !== 'vendor' && class_exists($class);
-                if ( !$is_class ) {
+                try {
+                    $is_class = str_before(base_path($path), "/") !== 'vendor' && class_exists($class);
+                    if( !$is_class ) {
+                        return false;
+                    }
+                } catch( \Exception $exception ) {
                     return false;
                 }
 
@@ -52,8 +60,8 @@ class ClassToFunction
                     $_class = app($class);
                     $is_class = is_object($_class) ? getModelAbstractClass($_class) : false;
 
-                    if ( $is_class ) {
-                        if ( function_exists($_class_name = basenameOf($class)) ) {
+                    if( $is_class ) {
+                        if( function_exists($_class_name = basenameOf($class)) ) {
                             $_class_name = "{$_class_name}_";
                         }
                         \mPhpMaster\LaravelClassToFunction\Classes\ClassToFunction::add($_class_name,
@@ -64,7 +72,7 @@ class ClassToFunction
                         return true;
                     }
                     return false;
-                } catch (\Exception $exception) {
+                } catch( \Exception $exception ) {
 
                 }
                 return false;
@@ -76,25 +84,36 @@ class ClassToFunction
 
     /**
      * @param $name
-     *
-     * @return bool|string
+     * @param $func
      */
-    private static function safeName($name) {
-        // extra safety against bad function names
-        $name = preg_replace('/[^a-zA-Z0-9_]/',"",$name);
-        $name = substr($name,0,64);
-        return $name;
+    public static function add($name, $func)
+    {
+        // prepares a new function for make()
+        $name = self::safeName($name);
+        self::$store[ $name ] = $func;
+        self::$maker .= sprintf(self::$declaration, $name, __CLASS__);
     }
 
     /**
      * @param $name
-     * @param $func
+     *
+     * @return bool|string
      */
-    public static function add($name, $func) {
-        // prepares a new function for make()
-        $name = self::safeName($name);
-        self::$store[$name] = $func;
-        self::$maker .= sprintf(self::$declaration,$name,__CLASS__);
+    private static function safeName($name)
+    {
+        // extra safety against bad function names
+        $name = preg_replace('/[^a-zA-Z0-9_]/', "", $name);
+        $name = substr($name, 0, 64);
+        return $name;
+    }
+
+    /**
+     * @return string
+     */
+    public static function make()
+    {
+        // returns a string with all declarations
+        return self::$maker;
     }
 
     /**
@@ -102,16 +121,9 @@ class ClassToFunction
      *
      * @return mixed
      */
-    public static function get($name) {
+    public static function get($name)
+    {
         // returns a stored callable
-        return self::$store[$name];
-    }
-
-    /**
-     * @return string
-     */
-    public static function make() {
-        // returns a string with all declarations
-        return self::$maker;
+        return self::$store[ $name ];
     }
 }
