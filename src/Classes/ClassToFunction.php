@@ -48,7 +48,7 @@ class ClassToFunction
         if( ($_f = new \Illuminate\Filesystem\Filesystem)->exists($path) ) {
             collect($_f->getRequire($path))->filter(function ($path, $class) {
                 try {
-                    $is_class = str_before(base_path($path), "/") !== 'vendor' && class_exists($class);
+                    $is_class = str_before(base_path($path), "/") !== 'vendor' && class_exists($class) && is_subclass_of($class, \Illuminate\Database\Eloquent\Model::class);
                     if( !$is_class ) {
                         return false;
                     }
