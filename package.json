@@ -1,6 +1,6 @@
 {
     "name": "@mphpmaster/laravel-class-to-function",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Laravel Helpers: Class To Function",
     "main": "index.js",
     "scripts": {

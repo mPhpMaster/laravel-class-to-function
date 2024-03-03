@@ -1,6 +1,7 @@
 {
     "name": "mphpmaster/laravel-class-to-function",
     "description": "Laravel Helpers: Class To Function",
+    "version": "0.1.1",
     "type": "library",
     "keywords": ["helpers", "laravel", "class", "function", "php", "invoke"],
     "require": {
